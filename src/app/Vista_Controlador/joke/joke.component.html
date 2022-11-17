@@ -1,0 +1,6 @@
+<div class="card card-block" (dblclick)="eliminarBroma(joke)">
+    <h4 class="card-title">{{joke.getPregunta() | censurarInsultos:"un,tipo,queso"}}</h4>
+    <p class="card-text" [hidden]="joke.isOculto()">{{joke.getRespuesta() | censurarInsultos:"yo,maduro,pony"}}</p>
+    <a class="btn btn-primary" (click)="joke.cambiarOculto(joke)">Dime</a>
+    <a class="btn btn-primary" (click)="eliminarBroma(joke)">Borrar</a>
+</div>

@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title">Datos insuficientes</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalActivo.dismiss('Cerrar click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <p>
+    Porfavor rellene los campos 'pregunta' y 'respuesta' para añadir una broma
+  </p>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="modalActivo.close('Cerrar click')"
+  >
+    Cerrar
+  </button>
+</div>
