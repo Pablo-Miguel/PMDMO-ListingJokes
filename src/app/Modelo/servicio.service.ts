@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Joke } from './joke';
 
 @Injectable({
@@ -6,39 +7,43 @@ import { Joke } from './joke';
 })
 export class ServicioService {
 
-  jokes: Joke[];
+  private jokes: Joke[];
+  private jokes$: Subject<Joke[]>;
 
   constructor() {
-    this.jokes = [];
-    this.anyadirJokePrimero(
+    this.jokes = [
       new Joke(
         '¿Qué dijo el queso cuando se miró en el espejo?',
         'Hola-Yo (Halloumi)'
-      )
-    );
-    this.anyadirJokePrimero(
+      ),
       new Joke(
         '¿Qué tipo de queso usas para disfrazar un caballo pequeño?',
         'Máscara-a-pony (Mascarpone)'
-      )
-    );
-    this.anyadirJokePrimero(
+      ),
       new Joke(
         'Un niño me lanzó un trozo de queso cheddar.',
         "Pensé 'Eso no es muy maduro'"
       )
-    );
+    ];
+
+    this.jokes$ = new Subject();
   }
 
   getArray(): Joke[] {
-    return this.jokes;
+    return [...this.jokes];
+  }
+
+  getArray$(): Observable<Joke[]> {
+    return this.jokes$.asObservable();
   }
 
   anyadirJokePrimero(joke: Joke) {
-    this.getArray().unshift(joke);
+    this.jokes.unshift(joke);
+    this.jokes$.next([...this.jokes]);
   }
 
   eliminarBroma(joke: Joke) {
-    this.jokes = this.getArray().filter((x) => x.getId() !== joke.getId());
+    this.jokes = this.jokes.filter((x) => x.getId() !== joke.getId());
+    this.jokes$.next([...this.jokes]);
   }
 }
