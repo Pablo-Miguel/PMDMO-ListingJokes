@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Joke } from './joke';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Joke } from './joke';
 export class ServicioService {
 
   private jokes: Joke[];
-  private jokes$: Subject<Joke[]>;
+  private jokes$: BehaviorSubject<Joke[]>;
 
   constructor() {
     this.jokes = [
@@ -26,7 +26,7 @@ export class ServicioService {
       )
     ];
 
-    this.jokes$ = new Subject();
+    this.jokes$ = new BehaviorSubject<Joke[]>(this.jokes);
   }
 
   getArray(): Joke[] {
