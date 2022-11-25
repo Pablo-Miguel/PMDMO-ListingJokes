@@ -1,7 +1,7 @@
-<form [formGroup]="frmJokes">
+<form [formGroup]="frmJokes" novalidate>
     <div class="card card-block">
       <h4 class="card-title">Crear broma</h4>
-      <div (keypress)="pulsaTecla($event, preguntaHTML, respuestaHTML)">
+      <div (keypress)="pulsaTecla($event)">
         <div class="form-group">
           <h5>Pregunta:</h5>
           <input
@@ -11,7 +11,6 @@
             formControlName="pregunta"
             [ngClass]="{'incorrecto':  pregunta.invalid && pregunta.dirty,
             'correcto':  pregunta.valid && pregunta.dirty}"
-            #preguntaHTML
           />
           <div class="form-control-feedback" *ngIf="pregunta.errors && (pregunta.dirty || pregunta.touched)">
             <p *ngIf="pregunta.errors['minlength']" class="error">Se requiere un mínimo de 6 caracteres</p>
@@ -27,7 +26,6 @@
             formControlName="respuesta"
             [ngClass]="{'incorrecto':  respuesta.invalid && respuesta.dirty,
             'correcto':  respuesta.valid && respuesta.dirty}"
-            #respuestaHTML
           />
           <div class="form-control-feedback" *ngIf="respuesta.errors && (respuesta.dirty || respuesta.touched)">
             <p *ngIf="respuesta.errors['minlength']" class="error">Se requiere un mínimo de 6 caracteres</p>
@@ -38,8 +36,8 @@
       <button
         type="button"
         class="btn btn-primary"
-        (click)="crearJoke(preguntaHTML, respuestaHTML)"
-        [disabled]="pregunta.invalid || respuesta.invalid"
+        (click)="crearJoke()"
+        [disabled]="frmJokes.invalid"
       >
         Crear
       </button>

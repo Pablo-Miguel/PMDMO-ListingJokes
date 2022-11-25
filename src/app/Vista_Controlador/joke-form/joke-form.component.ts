@@ -36,9 +36,9 @@ export class JokeFormComponent implements OnInit {
     this.respuesta = new FormControl('', [Validators.required, Validators.minLength(6)]);
   }
 
-  crearJoke(pregunta: HTMLInputElement, respuesta: HTMLInputElement) {
-    if (pregunta.value !== '' && respuesta.value !== '') {
-      this.servicio.anyadirJokePrimero(new Joke(pregunta.value, respuesta.value));
+  crearJoke() {
+    if (this.pregunta.value !== '' && this.respuesta.value !== '') {
+      this.servicio.anyadirJokePrimero(new Joke(this.pregunta.value, this.respuesta.value));
     }
     else {
       this.servicioModal.open(ModalJokeComponent);
@@ -46,9 +46,9 @@ export class JokeFormComponent implements OnInit {
     this.frmJokes.reset();
   }
 
-  pulsaTecla($event: KeyboardEvent, pregunta: HTMLInputElement, respuesta: HTMLInputElement) {
-    if($event.key === "Enter"){
-      this.crearJoke(pregunta, respuesta);
+  pulsaTecla($event: KeyboardEvent) {
+    if($event.key === "Enter" && !this.frmJokes.invalid){
+      this.crearJoke();
     }
   }
 

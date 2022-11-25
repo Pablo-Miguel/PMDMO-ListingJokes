@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Joke } from 'src/app/Modelo/joke';
 import { ServicioService } from 'src/app/Modelo/servicio.service';
 
@@ -7,15 +7,11 @@ import { ServicioService } from 'src/app/Modelo/servicio.service';
   templateUrl: './joke-list.component.html',
   styleUrls: ['./joke-list.component.css']
 })
-export class JokeListComponent implements OnInit {
+export class JokeListComponent {
 
   jokes$!: Joke[];
 
   constructor(public servicio: ServicioService){
-    
-  }
-
-  ngOnInit(): void {
     this.servicio.getArray$().subscribe( j => this.jokes$ = j );
   }
 
